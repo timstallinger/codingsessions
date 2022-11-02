@@ -147,10 +147,6 @@ hold_left = False
 hold_up = False
 hold_down = False
 
-# create labels in corners for health
-font = pygame.font.Font(None, 36)
-player_health = font.render("Player Health: " + str(player.health), 1, (255, 255, 255))
-enemy_health = font.render("Enemy Health: " + str(enemy.health), 1, (255, 255, 255))
 
 # make enemy an online player
 # enemy moves up and down
@@ -268,12 +264,6 @@ while carryOn and not done:
     screen.fill(WHITE)
     wall_list.draw(screen)
     all_sprites_list.draw(screen)
-    
-    #display health
-    player_health = font.render("Player Health: " + str(player.health), 1, (255, 255, 255))
-    enemy_health = font.render("Enemy Health: " + str(enemy.health), 1, (255, 255, 255))
-    screen.blit(player_health, (0, 0))
-    screen.blit(enemy_health, (0, 30))
 
     pygame.display.flip()
      
