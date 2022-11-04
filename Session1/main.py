@@ -1,7 +1,7 @@
 from player import *
 from Bullet import *
 from level_creation import *
-from level import *
+from controls import *
 import math
 
 import pygame
@@ -39,7 +39,6 @@ pygame.display.set_caption("My First Game")
 
 # Loop until the user clicks the close button.
 done = False
-carryOn = True
 clock = pygame.time.Clock()
 
 
@@ -67,13 +66,12 @@ all_sprites_list.add(enemy)
 #level creation file, creates objects arount players
 create_objects(wall_list, player, enemy)
 
-level01 = Level()
-
+cntl = Controls()
 
 # main loop
-while level01.carryOn and not done:
+while cntl.carryOn and not done:
     # --- Main event loop
-    level01.get_input(bullet_list,all_sprites_list, player)
+    cntl.get_input(player,bullet_list,all_sprites_list)
 
     for bullet in bullet_list:
         # update bullet position

@@ -23,4 +23,3 @@ class Bullet(pygame.sprite.Sprite):
         self.rect.x += self.direction[0] * self.speed
         self.rect.y += self.direction[1] * self.speed
 
-
