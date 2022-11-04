@@ -3,6 +3,7 @@ from Bullet import *
 from level_creation import *
 from controls import *
 import math
+import os
 
 import pygame
 
@@ -30,7 +31,17 @@ RED = ( 255, 0, 0)
 BLUE = ( 0, 0, 255)
 
 pygame.init()
-pygame.display.list_modes()
+#Instantiate mixer
+pygame.mixer.init()
+
+# Load audio file
+script_dir = os.path.dirname(__file__)
+rel_path = "assets/music/60sec.wav"
+abs_file_path = os.path.join(script_dir, rel_path)
+pygame.mixer.music.load(abs_file_path)
+
+pygame.mixer.music.play()
+
 
 
 size = (700, 500)
@@ -78,11 +89,11 @@ while cntl.carryOn and not done:
         bullet.updatex()
         # if bullet collides with enemy, remove bullet and damage enemy
         if pygame.sprite.collide_rect(bullet, enemy):
-            bullet_list.remove(bullet)
-            all_sprites_list.remove(bullet)
-            if(enemy.alive):
+            if(enemy.alive()):
                 enemy.health -= 10
                 print(enemy.health)
+                bullet_list.remove(bullet)
+                all_sprites_list.remove(bullet)
             if enemy.health <= 0:
                 enemy.kill()
 
