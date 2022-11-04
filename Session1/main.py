@@ -30,7 +30,6 @@ RED = ( 255, 0, 0)
 BLUE = ( 0, 0, 255)
 
 pygame.init()
-pygame.display.list_modes()
 
 
 size = (700, 500)
@@ -78,11 +77,11 @@ while cntl.carryOn and not done:
         bullet.updatex()
         # if bullet collides with enemy, remove bullet and damage enemy
         if pygame.sprite.collide_rect(bullet, enemy):
-            bullet_list.remove(bullet)
-            all_sprites_list.remove(bullet)
-            if(enemy.alive):
+            if(enemy.alive()):
                 enemy.health -= 10
                 print(enemy.health)
+                bullet_list.remove(bullet)
+                all_sprites_list.remove(bullet)
             if enemy.health <= 0:
                 enemy.kill()
 
