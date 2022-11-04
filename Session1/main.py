@@ -3,6 +3,7 @@ from Bullet import *
 from level_creation import *
 from controls import *
 import math
+import os
 
 import pygame
 
@@ -30,6 +31,17 @@ RED = ( 255, 0, 0)
 BLUE = ( 0, 0, 255)
 
 pygame.init()
+#Instantiate mixer
+pygame.mixer.init()
+
+# Load audio file
+script_dir = os.path.dirname(__file__)
+rel_path = "assets/music/60sec.wav"
+abs_file_path = os.path.join(script_dir, rel_path)
+pygame.mixer.music.load(abs_file_path)
+
+pygame.mixer.music.play()
+
 
 
 size = (700, 500)
