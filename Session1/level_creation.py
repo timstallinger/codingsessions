@@ -1,4 +1,5 @@
 from player import *
+import random
 
 def create_room():
     # create one wall around the screen

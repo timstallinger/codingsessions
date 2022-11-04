@@ -1,6 +1,8 @@
 from player import *
 from Bullet import *
 from level_creation import *
+from level import *
+import math
 
 import pygame
 
@@ -65,95 +67,13 @@ all_sprites_list.add(enemy)
 #level creation file, creates objects arount players
 create_objects(wall_list, player, enemy)
 
-
-hold_right = False
-hold_left = False
-hold_up = False
-hold_down = False
-
-
-# make enemy an online player
-# enemy moves up and down
-# enemy shoots bullets
+level01 = Level()
 
 
 # main loop
-while carryOn and not done:
+while level01.carryOn and not done:
     # --- Main event loop
-    for event in pygame.event.get():
-        # if player pushes button
-        if event.type == pygame.KEYDOWN:
-            # if player pushes up
-            if event.key == pygame.K_UP:
-                hold_up = True
-            # if player pushes down
-            if event.key == pygame.K_DOWN:
-                hold_down = True
-            # if player pushes space
-            if event.key == pygame.K_SPACE:
-                # create 4 bullets in all directions
-                bullet = Bullet(player.rect.x, player.rect.y, (1, 0))
-                bullet_list.append(bullet)
-                all_sprites_list.add(bullet)
-                bullet = Bullet(player.rect.x, player.rect.y, (-1, 0))
-                bullet_list.append(bullet)
-                all_sprites_list.add(bullet)
-                bullet = Bullet(player.rect.x, player.rect.y, (0, 1))
-                bullet_list.append(bullet)
-                all_sprites_list.add(bullet)
-                bullet = Bullet(player.rect.x, player.rect.y, (0, -1))
-                bullet_list.append(bullet)
-                all_sprites_list.add(bullet)
-                
-            # if player presses right arrow move player right
-            if event.key == pygame.K_RIGHT:
-                hold_right = True
-            # if player presses left arrow move player left
-            if event.key == pygame.K_LEFT:
-                hold_left = True
-        # if player clicks left mouse, create bullet in according direction
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_RIGHT:
-                hold_right = False
-            if event.key == pygame.K_LEFT:
-                hold_left = False
-            if event.key == pygame.K_UP:
-                hold_up = False
-            if event.key == pygame.K_DOWN:
-                hold_down = False
-        
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            # get mouse position
-            pos = pygame.mouse.get_pos()
-            # calculate direction vector with mouse position
-            mouse_x = pos[0]
-            mouse_y = pos[1]
-            rel_x = mouse_x - player.rect.x
-            rel_y = mouse_y - player.rect.y
-            # calculate the length of the vector
-            length = math.hypot(rel_x, rel_y)
-            # normalize the vector
-            rel_x /= length
-            rel_y /= length
-
-            direction = (rel_x, rel_y)
-
-            # create bullet
-            bullet = Bullet(player.rect.x, player.rect.y, direction)
-            bullet_list.append(bullet)
-            all_sprites_list.add(bullet)
-            
-        
-        if event.type == pygame.QUIT:
-            carryOn = False
-    if hold_right:
-        player.rect.x += 3
-    if hold_left:
-        player.rect.x -= 3
-    if hold_up:
-        player.rect.y -= 3
-    if hold_down:
-        player.rect.y += 3
+    level01.get_input(bullet_list,all_sprites_list, player)
 
     for bullet in bullet_list:
         # update bullet position
@@ -172,10 +92,12 @@ while carryOn and not done:
     # check enemy health
     if enemy.health <= 0:
         enemy.kill()
+        # TODO: Win screen, wait, new level
     # if player collides with any wall, kill player
     block_hit_list = pygame.sprite.spritecollide(player, wall_list, False)
     for block in block_hit_list:
         player.kill()
+        # TODO: Game over label, wait, new level
     
     # if bullet hits wall, kill bullet
     for bullet in bullet_list:

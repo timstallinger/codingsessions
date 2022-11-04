@@ -1,6 +1,4 @@
 import pygame
-import math
-import random
 
 class Player(pygame.sprite.Sprite):
     # this class represents the player

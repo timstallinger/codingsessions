@@ -1,6 +1,5 @@
-
 import pygame
-import math
+
 
 BLACK = ( 0, 0, 0)
 # class Bullet
