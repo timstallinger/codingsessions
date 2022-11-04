@@ -2,12 +2,24 @@ from player import *
 from Bullet import *
 from level_creation import *
 
+import pygame
+
 
 # player controls a cube that he can move up and down with the arrow keys
 # the cube can also shoot bullets
 # the goal is to shoot the enemy cube
 # the enemy cube moves up and down and shoots bullets
 # the player and enemy cubes have health bars
+
+# TODO: add a health bar for the player
+# TODO: add a health bar for the enemy
+# TODO: main menu
+# TODO: Items
+# TODO: Music
+# TODO: Enemies movement
+# TODO: Buffs and debuffs 
+# TODO: Bullet class
+# TODO: Sprites
 
 BLACK = ( 0, 0, 0)
 WHITE = ( 255, 255, 255)
@@ -150,8 +162,9 @@ while carryOn and not done:
         if pygame.sprite.collide_rect(bullet, enemy):
             bullet_list.remove(bullet)
             all_sprites_list.remove(bullet)
-            enemy.health -= 10
-            print(enemy.health)
+            if(enemy.alive):
+                enemy.health -= 10
+                print(enemy.health)
             if enemy.health <= 0:
                 enemy.kill()
 
@@ -163,7 +176,6 @@ while carryOn and not done:
     block_hit_list = pygame.sprite.spritecollide(player, wall_list, False)
     for block in block_hit_list:
         player.kill()
-        done = True
     
     # if bullet hits wall, kill bullet
     for bullet in bullet_list:
