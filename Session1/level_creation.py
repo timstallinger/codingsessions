@@ -7,7 +7,6 @@ class wall_location:
         self.walls = [[(200, 100, 50, 800),(400, 0, 50, 400),(400, 450, 50, 200)], [(400, 450, 50, 800),(100, 0, 50, 300),(0,0,0,0)]]
         
     def build_walls(self, i):
-        print("hola")
         return self.walls[self.number][i]
 
 
