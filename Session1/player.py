@@ -2,7 +2,7 @@ import pygame
 
 class Player(pygame.sprite.Sprite):
     # this class represents the player
-    def __init__(self, x, y, color, ):
+    def __init__(self, x, y, color ):
         super().__init__()
         self.image = pygame.Surface([20, 20])
         self.image.fill(color)
@@ -22,6 +22,7 @@ class Player(pygame.sprite.Sprite):
             self.rect.y += self.speed
 
         # check if the player hits a wall
+        # TODO BUG FOUND: NO wall list here
         block_hit_list = pygame.sprite.spritecollide(self, wall_list, False)
         for block in block_hit_list:
             if self.speed > 0:

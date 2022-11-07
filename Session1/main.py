@@ -4,7 +4,7 @@ from level_creation import *
 from controls import *
 import math
 import os
-
+from items import *
 import pygame
 
 
@@ -63,15 +63,19 @@ all_sprites_list = pygame.sprite.Group()
 player = Player(50, 50, BLUE)
 all_sprites_list.add(player)
 
-enemy = Player(650, 50, RED)
-
-# create list for bullets
-bullet_list = []
-
 # add all sprites to a list
 all_sprites_list = pygame.sprite.Group()
 all_sprites_list.add(player)
-all_sprites_list.add(enemy)
+
+#enemy list added
+enemy_list = []
+for i in range (1):
+    enemy = Player(650, 50, RED)
+    enemy_list.append(enemy)
+    all_sprites_list.add(enemy)
+
+# create list for bullets
+bullet_list = []
 
 
 #level creation file, creates objects arount players
@@ -87,17 +91,22 @@ while cntl.carryOn and not done:
     for bullet in bullet_list:
         # update bullet position
         bullet.updatex()
+        for curr_enemy in enemy_list:
         # if bullet collides with enemy, remove bullet and damage enemy
-        if pygame.sprite.collide_rect(bullet, enemy):
-            if(enemy.alive()):
-                enemy.health -= 10
-                print(enemy.health)
-                bullet_list.remove(bullet)
-                all_sprites_list.remove(bullet)
-            if enemy.health <= 0:
-                enemy.kill()
+            if pygame.sprite.collide_rect(bullet, curr_enemy):
+                if(curr_enemy.alive()):
+                    enemy.health -= 10
+                    print(enemy.health)
+                    bullet_list.remove(bullet)
+                    all_sprites_list.remove(bullet)
+                if curr_enemy.health <= 0:
+                    enemy_list.remove(curr_enemy)
+                    curr_enemy.kill()
 
-
+        if len(enemy_list) == 0:
+            spawn_reward(all_sprites_list)
+        
+ 
     # check enemy health
     if enemy.health <= 0:
         enemy.kill()
