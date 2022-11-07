@@ -63,9 +63,9 @@ all_sprites_list = pygame.sprite.Group()
 player = Player(50, 50, BLUE)
 all_sprites_list.add(player)
 
-# add all sprites to a list
-all_sprites_list = pygame.sprite.Group()
-all_sprites_list.add(player)
+
+#add all items to a list
+items_list = []
 
 #enemy list added
 enemy_list = []
@@ -82,7 +82,8 @@ bullet_list = []
 create_objects(wall_list, player, enemy)
 
 cntl = Controls()
-
+# exists so that rewards spawn only once
+fight_running = True
 # main loop
 while cntl.carryOn and not done:
     # --- Main event loop
@@ -103,13 +104,21 @@ while cntl.carryOn and not done:
                     enemy_list.remove(curr_enemy)
                     curr_enemy.kill()
 
-        if len(enemy_list) == 0:
-            spawn_reward(all_sprites_list)
-        
- 
+        if len(enemy_list) == 0 and fight_running == True: 
+            fight_running = False
+            reward = spawn_reward(all_sprites_list)
+            items_list.append(reward)
+         
+    
     # check enemy health
     if enemy.health <= 0:
         enemy.kill()
+    
+    for item in items_list:
+        if pygame.sprite.collide_rect(player, item):
+            player.special = item.special
+            items_list.remove(item)
+            all_sprites_list.remove(item)
         # TODO: Win screen, wait, new level
     # if player collides with any wall, kill player
     block_hit_list = pygame.sprite.spritecollide(player, wall_list, False)

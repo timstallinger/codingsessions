@@ -14,7 +14,13 @@ class Item(pygame.sprite.Sprite):
         self.rect.x = self.x
         self.rect.y = self.y
         self.image.fill(self.color)
+        self.special = "blank"
 
 def spawn_reward(all_sprites_list):
+    
     reward = Item(300, 250, GREEN)
+    reward.special = "nuke"
     all_sprites_list.add(reward)
+    print(reward.special)
+    
+    return reward
