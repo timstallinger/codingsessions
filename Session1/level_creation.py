@@ -4,7 +4,7 @@ class wall_location:
     def __init__(self, number):
         super().__init__()
         self.number = number
-        self.walls = [[(200, 100, 50, 800),(400, 0, 50, 400),(400, 450, 50, 200)], [(400, 450, 50, 800),(100, 0, 50, 300),(0,0,0,0)],[(150, 100, 50, 100),(250, 200, 100, 300),(400, 250, 50, 200),(400, 450, 250, 900)]]
+        self.walls = [[(200, 100, 50, 800),(400, 0, 50, 400),(400, 450, 50, 200)], [(400, 450, 50, 800),(100, 0, 50, 300),(0,0,0,0)],[(150, 100, 50, 100),(150, 200, 100, 300),(400, 250, 50, 200),(400, 450, 250, 900)]]
         self.walls = self.walls[number]
         
     def build_walls(self, i):
@@ -46,7 +46,7 @@ def create_room():
 
 def create_objects(wall_list, player, enemy):
     room_nr = random.randint(0,2)
-    wall_list = room(wall_list, 2)
+    wall_list = room(wall_list, room_nr)
     # if wall touches player or enemy, move it
 
     return 0
