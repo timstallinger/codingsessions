@@ -27,17 +27,19 @@ class Controls:
                     self.hold_left = True
                 # if player pushes space
                 if event.key == pygame.K_SPACE:
-                    # create 4 bullets in all directions
-                    bullet = Bullet(player.rect.x, player.rect.y, (1, 0))
-                    bullet_list.append(bullet)
-                    all_sprites_list.add(bullet)
-                    bullet = Bullet(player.rect.x, player.rect.y, (-1, 0))
-                    bullet_list.append(bullet)
-                    all_sprites_list.add(bullet)
-                    bullet = Bullet(player.rect.x, player.rect.y, (0, 1))
-                    bullet_list.append(bullet)
-                    all_sprites_list.add(bullet)
-                    bullet = Bullet(player.rect.x, player.rect.y, (0, -1))
+                    # create bullet in direction player is facing
+                    if player.direction == 0:
+                        #runter
+                        bullet = Bullet(player.rect.x, player.rect.y, (0, 1), player.special)
+                    elif player.direction == 2:
+                        #rechts
+                        bullet = Bullet(player.rect.x, player.rect.y, (1, 0), player.special)
+                    elif player.direction == 3:
+                        #hoch
+                        bullet = Bullet(player.rect.x, player.rect.y, (0, -1), player.special)
+                    elif player.direction == 1:
+                        #links
+                        bullet = Bullet(player.rect.x, player.rect.y, (-1, 0), player.special)
                     bullet_list.append(bullet)
                     all_sprites_list.add(bullet)
                     

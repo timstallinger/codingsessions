@@ -1,26 +1,22 @@
 import random
 import pygame
+from spritehandler import *
 
 GREEN = ( 0, 255, 0)
 
 class Item(pygame.sprite.Sprite):
     def __init__(self, x, y, color):
         super().__init__()
-        self.x = x
-        self.y = y
-        self.color = color
-        self.image = pygame.Surface([20, 20])
+        self.image = spritesheet("assets/Items/Book.png").image_at((0,0,16,16))
+        self.image = pygame.transform.scale(self.image, (32,32))
         self.rect = self.image.get_rect()
-        self.rect.x = self.x
-        self.rect.y = self.y
-        self.image.fill(self.color)
+        self.rect.x = x
+        self.rect.y = y
         self.special = "blank"
 
-def spawn_reward(all_sprites_list):
-    
+def spawn_reward():
     reward = Item(300, 250, GREEN)
     reward.special = "nuke"
-    all_sprites_list.add(reward)
     print(reward.special)
     
     return reward

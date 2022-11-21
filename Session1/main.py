@@ -109,7 +109,8 @@ while cntl.carryOn and not done:
 
         if len(enemy_list) == 0 and fight_running == True: 
             fight_running = False
-            reward = spawn_reward(all_sprites_list)
+            reward = spawn_reward()
+            all_sprites_list.add(reward)
             items_list.append(reward)
 
     

@@ -17,6 +17,7 @@ class Player(pygame.sprite.Sprite):
         self.step = 0
         self.direction = 1
         self.imagerow = None
+        self.special = None
 
     # never called?
     def update(self, wall_list):
