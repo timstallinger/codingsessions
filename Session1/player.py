@@ -21,7 +21,7 @@ class Player(pygame.sprite.Sprite):
     def update(self, wall_list):
         if self.moving:
             self.step += 1
-            if self.step == 4:
+            if self.step == 8:
                 self.step = 0
                 self.image = pygame.transform.flip(self.image, True, False)
         else:

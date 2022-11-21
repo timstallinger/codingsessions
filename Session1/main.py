@@ -41,7 +41,7 @@ rel_path = "assets/music/60sec.wav"
 abs_file_path = os.path.join(script_dir, rel_path)
 pygame.mixer.music.load(abs_file_path)
 
-pygame.mixer.music.play()
+# pygame.mixer.music.play()
 
 
 
