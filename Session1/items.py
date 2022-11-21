@@ -5,18 +5,16 @@ from spritehandler import *
 GREEN = ( 0, 255, 0)
 
 class Item(pygame.sprite.Sprite):
-    def __init__(self, x, y, color):
+    def __init__(self, x, y, sprite, im_x, im_y, scale = 1):
         super().__init__()
-        self.image = spritesheet("assets/Items/Book.png").image_at((0,0,16,16))
-        self.image = pygame.transform.scale(self.image, (32,32))
+        self.image = spritesheet(sprite).image_at((im_x,im_y,16,16))
+        self.image = pygame.transform.scale(self.image, (32*scale,32*scale))
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
-        self.special = "blank"
+        self.special = None
 
 def spawn_reward():
-    reward = Item(300, 250, GREEN)
-    reward.special = "nuke"
-    print(reward.special)
-    
+    reward = Item(300, 250, "assets/Items/Book.png",0,0)
+    reward.special = "nuke"    
     return reward
