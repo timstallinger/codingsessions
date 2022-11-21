@@ -2,6 +2,7 @@ from player import *
 from Bullet import *
 from level_creation import *
 from controls import *
+from spritehandler import *
 import math
 import os
 from items import *
@@ -61,6 +62,8 @@ all_sprites_list = pygame.sprite.Group()
 
 # create the player
 player = Player(50, 50, BLUE)
+playersprite = spritesheet("assets/Characters/Player0.png")
+player.image = playersprite.image_at((0,0,16,16))
 all_sprites_list.add(player)
 
 
