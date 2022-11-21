@@ -80,9 +80,15 @@ class Controls:
         
         if self.hold_right:
             player.rect.x += 3
+            player.moving=True
         if self.hold_left:
             player.rect.x -= 3
+            player.moving=True
         if self.hold_up:
             player.rect.y -= 3
+            player.moving=True
         if self.hold_down:
             player.rect.y += 3
+            player.moving=True
+        if not self.hold_right and not self.hold_left and not self.hold_up and not self.hold_down:
+            player.moving=False

@@ -1,18 +1,19 @@
 import pygame
+from spritehandler import *
 
 
 BLACK = ( 0, 0, 0)
 # class Bullet
 # this class represents the bullets
 class Bullet(pygame.sprite.Sprite):
-    def __init__(self, x, y, direction):
+    def __init__(self, x, y, direction, scale = 1):
         super().__init__()
-        self.image = pygame.Surface([10, 10])
-        self.image.fill(BLACK)
+        self.image = spritesheet("assets/Objects/Effect0.png").image_at((96,353,16,16))
+        self.image = pygame.transform.scale(self.image, (16*scale,16*scale))
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
-        self.speed = 10
+        self.speed = 8
         # direction is tuple (x, y)
         self.direction = direction
     

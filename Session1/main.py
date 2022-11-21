@@ -104,17 +104,13 @@ while cntl.carryOn and not done:
                     all_sprites_list.remove(bullet)
                 if curr_enemy.health <= 0:
                     enemy_list.remove(curr_enemy)
-                    curr_enemy.kill()
+                    curr_enemy.image = pygame.transform.rotate(curr_enemy.image, 90)
 
         if len(enemy_list) == 0 and fight_running == True: 
             fight_running = False
             reward = spawn_reward(all_sprites_list)
             items_list.append(reward)
-         
-    
-    # check enemy health
-    if enemy.health <= 0:
-        enemy.kill()
+
     
     for item in items_list:
         if pygame.sprite.collide_rect(player, item):

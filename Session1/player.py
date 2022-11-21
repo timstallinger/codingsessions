@@ -14,8 +14,18 @@ class Player(pygame.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
 
+        self.step = 0
+        self.moving=False
+
     # never called?
     def update(self, wall_list):
+        if self.moving:
+            self.step += 1
+            if self.step == 4:
+                self.step = 0
+                self.image = pygame.transform.flip(self.image, True, False)
+        else:
+            self.step = 0
         # check if the player hits a wall
         block_hit_list = pygame.sprite.spritecollide(self, wall_list, False)
         for block in block_hit_list:
