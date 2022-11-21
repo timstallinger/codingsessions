@@ -22,13 +22,11 @@ class Player(pygame.sprite.Sprite):
     def update(self, wall_list):
         if self.moving:
             self.step += 1
-            self.image = self.imagerow[int(self.step/6) % 3]
+            self.image = self.imagerow[self.direction*3 + int(self.step/6) % 3]
             self.image = pygame.transform.scale(self.image, (32,32))
-            self.image = pygame.transform.rotate(self.image, 90*self.direction)
         else:
-            self.image = self.imagerow[0]
+            self.image = self.imagerow[self.direction*3]
             self.image = pygame.transform.scale(self.image, (32,32))
-            self.image = pygame.transform.rotate(self.image, 90*self.direction)
         # check if the player hits a wall
         block_hit_list = pygame.sprite.spritecollide(self, wall_list, False)
         for block in block_hit_list:

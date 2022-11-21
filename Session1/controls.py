@@ -81,15 +81,15 @@ class Controls:
         if self.hold_right:
             player.rect.x += 3
             player.moving=True
-            player.direction = 1
+            player.direction = 2
         if self.hold_left:
             player.rect.x -= 3
             player.moving=True
-            player.direction = 3
+            player.direction = 1
         if self.hold_up:
             player.rect.y -= 3
             player.moving=True
-            player.direction = 2
+            player.direction = 3
         if self.hold_down:
             player.rect.y += 3
             player.moving=True

@@ -62,7 +62,7 @@ all_sprites_list = pygame.sprite.Group()
 
 # create the player
 player = Player(50, 50, "assets/Characters/animated.png", 64,0)
-player.imagerow = spritesheet("assets/Characters/animated.png").images_at([(64,0,16,16),(48,0,16,16),(80,0,16,16)], colorkey = None)
+player.imagerow = spritesheet("assets/Characters/animated.png").images_at([(64,0,16,16),(48,0,16,16),(80,0,16,16),(64,16,16,16),(48,16,16,16),(80,16,16,16),(64,32,16,16),(48,32,16,16),(80,32,16,16),(64,48,16,16),(48,48,16,16),(80,48,16,16)], colorkey = None)
 all_sprites_list.add(player)
 
 
