@@ -61,7 +61,8 @@ wall_list = create_room()
 all_sprites_list = pygame.sprite.Group()
 
 # create the player
-player = Player(50, 50, "assets/Characters/Player0.png")
+player = Player(50, 50, "assets/Characters/animated.png", 64,0)
+player.imagerow = spritesheet("assets/Characters/animated.png").images_at([(64,0,16,16),(48,0,16,16),(80,0,16,16)], colorkey = None)
 all_sprites_list.add(player)
 
 
@@ -72,7 +73,7 @@ items_list = []
 #enemy list added
 enemy_list = []
 for i in range (1):
-    enemy = Player(650, 50, "assets/Characters/Undead0.png")
+    enemy = Player(650, 50, "assets/Characters/Undead0.png",0,0)
     enemy_list.append(enemy)
     all_sprites_list.add(enemy)
 
