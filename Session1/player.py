@@ -12,20 +12,11 @@ class Player(pygame.sprite.Sprite):
         self.speed = 5
         self.health = 50
 
-
-    def update(self):
-        # move up and down
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_UP]:
-            self.rect.y -= self.speed
-        if keys[pygame.K_DOWN]:
-            self.rect.y += self.speed
-
+    # never called?
+    def update(self, wall_list):
         # check if the player hits a wall
-        # TODO BUG FOUND: NO wall list here
         block_hit_list = pygame.sprite.spritecollide(self, wall_list, False)
         for block in block_hit_list:
-            if self.speed > 0:
-                self.rect.bottom = block.rect.top
-            else:
-                self.rect.top = block.rect.bottom
+            print("hit wall, dead.")
+            self.kill()
+            return True

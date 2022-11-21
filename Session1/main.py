@@ -120,11 +120,6 @@ while cntl.carryOn and not done:
             items_list.remove(item)
             all_sprites_list.remove(item)
         # TODO: Win screen, wait, new level
-    # if player collides with any wall, kill player
-    block_hit_list = pygame.sprite.spritecollide(player, wall_list, False)
-    for block in block_hit_list:
-        player.kill()
-        # TODO: Game over label, wait, new level
     
     # if bullet hits wall, kill bullet
     for bullet in bullet_list:
@@ -135,7 +130,9 @@ while cntl.carryOn and not done:
                 bullet_list.remove(bullet)
             all_sprites_list.remove(bullet) 
     
-    
+    # if player collides with any wall, kill player
+    done = player.update(wall_list)
+
     screen.fill(WHITE)
     wall_list.draw(screen)
     all_sprites_list.draw(screen)
