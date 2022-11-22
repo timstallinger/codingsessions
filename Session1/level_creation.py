@@ -60,20 +60,41 @@ maps = [
     ],
 ]
 
+
 skins = [
     [
         "assets/Objects/basictiles.png",
-        0,
-        128,
-        96,
-        64,
+        [(0,128)], # ground
+        [(78,144), (64,32)] # obstacles
     ],
     [
         "assets/Objects/basictiles.png",
-        16,
-        128,
-        64,
-        112,
+        [(16,128)],
+        [(96,64),(96,48)]
+    ],
+    [
+        "assets/Objects/basictiles.png",
+        [(16,128)],
+        [(64,112)]
+    ],
+    [
+        "assets/Objects/basictiles.png",
+        [(16,16)],
+        [(16,32)]
+    ],
+    [
+        "assets/Objects/basictiles.png",
+        [(48,16)],
+        [(64,16)]
+    ],
+]
+
+dungeons = [
+    [
+        "assets/Objects/basictiles.png",
+        [(96,32)], # black
+        [(16,0)], # ground
+        [(112,16), (112,32)] # obstacle
     ],
 ]
 class Block(pygame.sprite.Sprite):
@@ -104,20 +125,26 @@ def create_room_for_tilemap(game):
     for row, tiles in enumerate(map):
         for col, tile in enumerate(tiles):
             if tile == "B":
-                Block(game, col, row, skin[0],skin[1],skin[2])
-                Block(game, col, row, skin[0],skin[3],skin[4], block=True)
+                ground = random.choice(skin[1])
+                block = random.choice(skin[2])
+                Block(game, col, row, skin[0],ground[0],ground[1])
+                Block(game, col, row, skin[0],block[0],block[1], block=True)
             elif tile == "E":
-                Block(game, col, row, skin[0],skin[1],skin[2])
+                ground = random.choice(skin[1])
+                Block(game, col, row, skin[0],ground[0],ground[1])
                 game.enemies.add(Player(game, col*TILESIZE, row*TILESIZE, "assets/Characters/Undead0.png",0,0, enemy=True))
             elif tile == "I":
-                # Item
-                Block(game, col, row, skin[0],skin[1],skin[2])
+                ground = random.choice(skin[1])
+                Block(game, col, row, skin[0],ground[0],ground[1])
                 Item(game, "nuke", col*TILESIZE, row*TILESIZE, "assets/Items/Book.png",0,0)
             elif tile == "C":
-                Block(game, col, row, skin[0],skin[1],skin[2])
+                ground = random.choice(skin[1])
+                Block(game, col, row, skin[0],ground[0],ground[1])
                 Item(game, "chest", col*TILESIZE, row*TILESIZE, "assets/Items/Chest0.png",0,0)
             elif tile == "P":                
-                Block(game, col, row, skin[0],skin[1],skin[2])
+                ground = random.choice(skin[1])
+                Block(game, col, row, skin[0],ground[0],ground[1])
                 game.player = Player(game, col*TILESIZE, row*TILESIZE)
             else:
-                Block(game, col, row, skin[0],skin[1],skin[2])
+                ground = random.choice(skin[1])
+                Block(game, col, row, skin[0],ground[0],ground[1])
