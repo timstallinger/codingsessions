@@ -60,6 +60,22 @@ maps = [
     ],
 ]
 
+skins = [
+    [
+        "assets/Objects/basictiles.png",
+        0,
+        128,
+        96,
+        64,
+    ],
+    [
+        "assets/Objects/basictiles.png",
+        16,
+        128,
+        64,
+        112,
+    ],
+]
 class Block(pygame.sprite.Sprite):
     def __init__(self, game, x, y, sprite, im_x, im_y, scale = 1, block=False):
         if block:
@@ -84,22 +100,24 @@ class Block(pygame.sprite.Sprite):
 def create_room_for_tilemap(game):
     # chose random map
     map = random.choice(maps)
+    skin = random.choice(skins)
     for row, tiles in enumerate(map):
         for col, tile in enumerate(tiles):
             if tile == "B":
-                Block(game, col, row, "assets/Objects/Floor.png",0,0, block=True)
+                Block(game, col, row, skin[0],skin[1],skin[2])
+                Block(game, col, row, skin[0],skin[3],skin[4], block=True)
             elif tile == "E":
-                Block(game, col, row, "assets/Objects/Floor.png",0,48)
+                Block(game, col, row, skin[0],skin[1],skin[2])
                 game.enemies.add(Player(game, col*TILESIZE, row*TILESIZE, "assets/Characters/Undead0.png",0,0, enemy=True))
             elif tile == "I":
                 # Item
-                Block(game, col, row, "assets/Objects/Floor.png",0,48)
+                Block(game, col, row, skin[0],skin[1],skin[2])
                 Item(game, "nuke", col*TILESIZE, row*TILESIZE, "assets/Items/Book.png",0,0)
             elif tile == "C":
-                Block(game, col, row, "assets/Objects/Floor.png",0,48)
+                Block(game, col, row, skin[0],skin[1],skin[2])
                 Item(game, "chest", col*TILESIZE, row*TILESIZE, "assets/Items/Chest0.png",0,0)
-            elif tile == "P":
-                Block(game, col, row, "assets/Objects/Floor.png",0,48)
+            elif tile == "P":                
+                Block(game, col, row, skin[0],skin[1],skin[2])
                 game.player = Player(game, col*TILESIZE, row*TILESIZE)
             else:
-                Block(game, col, row, "assets/Objects/Floor.png",0,48)
+                Block(game, col, row, skin[0],skin[1],skin[2])
