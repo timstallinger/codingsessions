@@ -1,5 +1,6 @@
 from player import *
 import random
+from items import *
 from spritehandler import *
 
 class wall_location:
@@ -80,7 +81,7 @@ map = [
     "B............B.......B",
     "B............B.......B",
     "B.....B......B.......B",
-    "B.....B......B.......B",
+    "B.....B......B...I...B",
     "B.....B......B.......B",
     "B.....B......B.......B",
     "B.....B..............B",
@@ -117,6 +118,10 @@ def create_room_for_tilemap(game):
             elif tile == "E":
                 Block(game, col, row, "assets/Objects/Floor.png",0,48)
                 game.enemies.add(Player(game, col*TILESIZE, row*TILESIZE, "assets/Characters/Undead0.png",0,0, enemy=True))
+            elif tile == "I":
+                # Item
+                Block(game, col, row, "assets/Objects/Floor.png",0,48)
+                game.items.add(Item(game, "nuke", col*TILESIZE, row*TILESIZE, "assets/Items/Book.png",0,0))
             elif tile == "P":
                 Block(game, col, row, "assets/Objects/Floor.png",0,48)
                 game.player = Player(game, col*TILESIZE, row*TILESIZE)

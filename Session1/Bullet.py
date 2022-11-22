@@ -32,3 +32,14 @@ class Bullet(pygame.sprite.Sprite):
         self.rect.x += self.direction[0] * self.speed
         self.rect.y += self.direction[1] * self.speed
 
+        block_hit_list = pygame.sprite.spritecollide(self, self.game.blocks, False)
+        if block_hit_list:
+            self.kill()
+
+        # check if the bullet hits an enemy
+        enemy_hit_list = pygame.sprite.spritecollide(self, self.game.enemies, False)
+        for enemy in enemy_hit_list:
+            enemy.health -= self.damage
+            print(enemy.health)
+            self.kill()
+
