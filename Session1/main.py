@@ -7,6 +7,7 @@ import math
 import os
 from items import *
 import pygame
+from config import *
 
 
 # player controls a cube that he can move up and down with the arrow keys
@@ -24,7 +25,7 @@ import pygame
 # TODO: Buffs and debuffs 
 # TODO: Bullet class
 # TODO: Sprites
-
+'''
 BLACK = ( 0, 0, 0)
 WHITE = ( 255, 255, 255)
 GREEN = ( 0, 255, 0)
@@ -99,7 +100,7 @@ while cntl.carryOn and not done:
         # if bullet collides with enemy, remove bullet and damage enemy
             if pygame.sprite.collide_rect(bullet, curr_enemy):
                 if(curr_enemy.alive()):
-                    enemy.health -= 10
+                    enemy.health -= bullet.damage
                     print(enemy.health)
                     bullet_list.remove(bullet)
                     all_sprites_list.remove(bullet)
@@ -141,4 +142,61 @@ while cntl.carryOn and not done:
      
     clock.tick(60)
 
+pygame.quit()
+'''
+
+class Game:
+    def __init__(self):
+        self.screen = pygame.display.set_mode((WINWIDTH, WINHEIGHT))
+        self.clock = pygame.time.Clock()
+        self.running = True
+
+    def new(self):
+        self.playing = True
+        self.all_sprites = pygame.sprite.Group()
+        self.blocks = pygame.sprite.Group()
+        self.enemies = pygame.sprite.Group()
+        self.attacks = pygame.sprite.Group()
+
+        create_room_for_tilemap(self)
+
+        self.player.imagerow = spritesheet("assets/Characters/animated.png").images_at([(64,0,16,16),(48,0,16,16),(80,0,16,16),(64,16,16,16),(48,16,16,16),(80,16,16,16),(64,32,16,16),(48,32,16,16),(80,32,16,16),(64,48,16,16),(48,48,16,16),(80,48,16,16)], colorkey = None)
+
+        self.playerCntrl = Controls()
+
+
+        self.all_sprites.add(self.player)
+
+    def events(self):
+        self.playerCntrl.get_input(self)
+
+
+    def update(self):
+        self.all_sprites.update()
+    
+    def draw(self):
+        self.screen.fill((255, 255, 255))
+        self.all_sprites.draw(self.screen)
+        self.clock.tick(FPS)
+        pygame.display.flip()
+    
+    def main(self):
+        while self.playing:
+            self.events()
+            self.update()
+            self.draw()
+        self.running = False
+    
+    def game_over(self):
+        print("Game Over")
+
+    def intro_screen(self):
+        pass
+
+g = Game()
+g.intro_screen()
+g.new()
+while g.running:
+    g.main()
+    g.game_over()
 pygame.quit()

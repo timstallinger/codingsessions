@@ -6,11 +6,13 @@ BLACK = ( 0, 0, 0)
 # class Bullet
 # this class represents the bullets
 class Bullet(pygame.sprite.Sprite):
-    def __init__(self, x, y, direction, special,scale = 1):
+    def __init__(self, x, y, direction, special,scale = 1, damage = 10):
         super().__init__()
+        self.damage = damage
         if special == "nuke":
             self.image = spritesheet("assets/Objects/Effect0.png").image_at((112,352,16,16))
             self.image = pygame.transform.scale(self.image, (32*scale,32*scale))
+            self.damage = 100
         else:
             self.image = spritesheet("assets/Objects/Effect0.png").image_at((96,353,16,16))
             self.image = pygame.transform.scale(self.image, (16*scale,16*scale))
