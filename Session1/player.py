@@ -1,11 +1,13 @@
 import pygame
 from spritehandler import *
 from config import *
+from items import *
 
 class Player(pygame.sprite.Sprite):
     # this class represents the player
     def __init__(self, game, x, y, spritesh = "assets/Characters/animated.png", imx = 64, imy = 0, scale = 1, enemy = False):
-        if enemy:
+        self.enemy = enemy
+        if self.enemy:
             self._layer = ENEMY_LAYER
             self.groups = game.all_sprites, game.enemies
         else:
@@ -41,3 +43,6 @@ class Player(pygame.sprite.Sprite):
         block_hit_list = pygame.sprite.spritecollide(self, self.game.blocks, False)
         for block in block_hit_list:
             self.game.playing = False
+        if self.health <= 0 and self.enemy:
+            self.image = pygame.transform.rotate(self.image, 90)
+            Item(self.game, "health", self.rect.x+10, self.rect.y+10, "assets/Items/Potion.png", 0, 0)
