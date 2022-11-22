@@ -16,7 +16,7 @@ map = [
     "B.....B......B...I...B",
     "B.....B......B.......B",
     "B.....B......B.......B",
-    "B.....B..............B",
+    "B..C..B..............B",
     "B.....B..............B",
     "BBBBBBBBBBBBBBBBBBBBBB",
 ]
@@ -53,7 +53,10 @@ def create_room_for_tilemap(game):
             elif tile == "I":
                 # Item
                 Block(game, col, row, "assets/Objects/Floor.png",0,48)
-                game.items.add(Item(game, "nuke", col*TILESIZE, row*TILESIZE, "assets/Items/Book.png",0,0))
+                Item(game, "nuke", col*TILESIZE, row*TILESIZE, "assets/Items/Book.png",0,0)
+            elif tile == "C":
+                Block(game, col, row, "assets/Objects/Floor.png",0,48)
+                Item(game, "chest", col*TILESIZE, row*TILESIZE, "assets/Items/Chest0.png",0,0)
             elif tile == "P":
                 Block(game, col, row, "assets/Objects/Floor.png",0,48)
                 game.player = Player(game, col*TILESIZE, row*TILESIZE)
