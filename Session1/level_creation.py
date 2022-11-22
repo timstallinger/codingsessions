@@ -1,24 +1,63 @@
 from player import *
 from items import *
 from spritehandler import *
+import random
 
-map = [
-    "BBBBBBBBBBBBBBBBBBBBBB",
-    "B............B.......B",
-    "B............B...E...B",
-    "B............B.......B",
-    "B............B.......B",
-    "B...P........B.......B",
-    "B............B.......B",
-    "B............B.......B",
-    "B............B.......B",
-    "B.....B......B.......B",
-    "B.....B......B...I...B",
-    "B.....B......B.......B",
-    "B.....B......B.......B",
-    "B..C..B..............B",
-    "B.....B..............B",
-    "BBBBBBBBBBBBBBBBBBBBBB",
+maps = [
+    [
+        "BBBBBBBBBBBBBBBBBBBBBB",
+        "B............B.......B",
+        "B............B...E...B",
+        "B............B.......B",
+        "B............B.......B",
+        "B...P........B.......B",
+        "B............B.......B",
+        "B............B.......B",
+        "B............B.......B",
+        "B.....B......B.......B",
+        "B.....B......B...I...B",
+        "B.....B......B.......B",
+        "B.....B......B.......B",
+        "B..C..B..............B",
+        "B.....B..............B",
+        "BBBBBBBBBBBBBBBBBBBBBB",
+    ],
+    [
+        "BBBBBBBBBBBBBBBBBBBBBB",
+        "B..P.................B",
+        "B....................B",
+        "BBBBBBBBBBBBBBB...C..B",
+        "B....E...............B",
+        "B....................B",
+        "B.C.....BBBBBBBBBBBBBB",
+        "B....................B",
+        "B....................B",
+        "BBBBBBBBBBBBBBBBBB...B",
+        "B...............C....B",
+        "B....................B",
+        "B..C..BBBBBBBBBBBBBBBB",
+        "B....................B",
+        "B................E...B",
+        "BBBBBBBBBBBBBBBBBBBBBB",
+    ],
+    [
+        "BBBBBBBBBBBBBBBBBBBBBB",
+        "BB........EE........BB",
+        "B.B................B.B",
+        "B..B..............B..B",
+        "B...B............B...B",
+        "B....B..........B....B",
+        "B.....B........B.....B",
+        "B..C...B......B...C..B",
+        "B.......B....B.......B",
+        "B........B..B........B",
+        "B.........EE.........B",
+        "B....................B",
+        "B....................B",
+        "B....................B",
+        "B..........P.........B",
+        "BBBBBBBBBBBBBBBBBBBBBB",
+    ],
 ]
 
 class Block(pygame.sprite.Sprite):
@@ -43,6 +82,8 @@ class Block(pygame.sprite.Sprite):
         self.rect.y = self.y
 
 def create_room_for_tilemap(game):
+    # chose random map
+    map = random.choice(maps)
     for row, tiles in enumerate(map):
         for col, tile in enumerate(tiles):
             if tile == "B":
