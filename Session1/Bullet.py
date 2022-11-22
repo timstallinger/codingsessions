@@ -2,10 +2,6 @@ import pygame
 from config import *
 from spritehandler import *
 
-
-BLACK = ( 0, 0, 0)
-# class Bullet
-# this class represents the bullets
 class Bullet(pygame.sprite.Sprite):
     def __init__(self, game, x, y, direction, special,scale = 1, damage = 10):
         self._layer = BULLET_LAYER
