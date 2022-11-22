@@ -10,12 +10,6 @@ import pygame
 from config import *
 
 
-# player controls a cube that he can move up and down with the arrow keys
-# the cube can also shoot bullets
-# the goal is to shoot the enemy cube
-# the enemy cube moves up and down and shoots bullets
-# the player and enemy cubes have health bars
-
 # TODO: add a health bar for the player
 # TODO: add a health bar for the enemy
 # TODO: main menu
@@ -26,57 +20,6 @@ from config import *
 # TODO: Bullet class
 # TODO: Sprites
 '''
-BLACK = ( 0, 0, 0)
-WHITE = ( 255, 255, 255)
-GREEN = ( 0, 255, 0)
-RED = ( 255, 0, 0)
-BLUE = ( 0, 0, 255)
-
-pygame.init()
-#Instantiate mixer
-pygame.mixer.init()
-
-# Load audio file
-script_dir = os.path.dirname(__file__)
-rel_path = "assets/music/60sec.wav"
-abs_file_path = os.path.join(script_dir, rel_path)
-pygame.mixer.music.load(abs_file_path)
-
-# pygame.mixer.music.play()
-
-
-
-size = (700, 500)
-screen = pygame.display.set_mode(size)
-pygame.display.set_caption("My First Game")
-
-# Loop until the user clicks the close button.
-done = False
-clock = pygame.time.Clock()
-
-
-# creates the room and returns list of main walls
-wall_list = create_room()
-
-
-all_sprites_list = pygame.sprite.Group()
-
-# create the player
-player = Player(50, 50, "assets/Characters/animated.png", 64,0)
-player.imagerow = spritesheet("assets/Characters/animated.png").images_at([(64,0,16,16),(48,0,16,16),(80,0,16,16),(64,16,16,16),(48,16,16,16),(80,16,16,16),(64,32,16,16),(48,32,16,16),(80,32,16,16),(64,48,16,16),(48,48,16,16),(80,48,16,16)], colorkey = None)
-all_sprites_list.add(player)
-
-
-
-#add all items to a list
-items_list = []
-
-#enemy list added
-enemy_list = []
-for i in range (1):
-    enemy = Player(650, 50, "assets/Characters/Undead0.png",0,0)
-    enemy_list.append(enemy)
-    all_sprites_list.add(enemy)
 
 # create list for bullets
 bullet_list = []
@@ -153,10 +96,11 @@ class Game:
 
     def new(self):
         self.playing = True
-        self.all_sprites = pygame.sprite.Group()
-        self.blocks = pygame.sprite.Group()
-        self.enemies = pygame.sprite.Group()
-        self.attacks = pygame.sprite.Group()
+        self.all_sprites = pygame.sprite.LayeredUpdates()
+        self.blocks = pygame.sprite.LayeredUpdates()
+        self.enemies = pygame.sprite.LayeredUpdates()
+        self.attacks = pygame.sprite.LayeredUpdates()
+        self.items = pygame.sprite.LayeredUpdates()
 
         create_room_for_tilemap(self)
 
@@ -164,12 +108,8 @@ class Game:
 
         self.playerCntrl = Controls()
 
-
-        self.all_sprites.add(self.player)
-
     def events(self):
         self.playerCntrl.get_input(self)
-
 
     def update(self):
         self.all_sprites.update()
@@ -192,6 +132,20 @@ class Game:
 
     def intro_screen(self):
         pass
+
+    def play_sound(self, sound):
+        # Load audio file
+        script_dir = os.path.dirname(__file__)
+        rel_path = "assets/music/"+sound+".wav"
+        abs_file_path = os.path.join(script_dir, rel_path)
+        pygame.mixer.music.load(abs_file_path)
+
+        pygame.mixer.music.play()
+
+
+pygame.init()
+pygame.mixer.init()
+pygame.display.set_caption("Pew Pew")
 
 g = Game()
 g.intro_screen()

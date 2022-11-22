@@ -4,14 +4,19 @@ from config import *
 
 class Player(pygame.sprite.Sprite):
     # this class represents the player
-    def __init__(self, game, x, y):
-        super().__init__()
+    def __init__(self, game, x, y, spritesh = "assets/Characters/animated.png", imx = 64, imy = 0, scale = 1, enemy = False):
+        if enemy:
+            self._layer = ENEMY_LAYER
+            self.groups = game.all_sprites, game.enemies
+        else:
+            self._layer = PLAYER_LAYER
+            self.groups = game.all_sprites
+        pygame.sprite.Sprite.__init__(self, self.groups)
         self.game = game
-        self.layer = PLAYER_LAYER
         self.speed = 5
         self.health = 50
-        self.sprite = spritesheet("assets/Characters/animated.png")
-        self.image = self.sprite.image_at((64,0,16,16))
+        self.sprite = spritesheet(spritesh)
+        self.image = self.sprite.image_at((imx,imy,16,16))
         self.image = pygame.transform.scale(self.image, (32,32))
         self.rect = self.image.get_rect()
         self.rect.x = x
@@ -19,7 +24,7 @@ class Player(pygame.sprite.Sprite):
 
         self.step = 0
         self.direction = 1
-        self.imagerow = None
+        self.imagerow = [self.image for i in range(4)]
         self.special = None
         self.moving = False
 
@@ -35,5 +40,4 @@ class Player(pygame.sprite.Sprite):
         # check if the player hits a wall
         block_hit_list = pygame.sprite.spritecollide(self, self.game.blocks, False)
         for block in block_hit_list:
-            print("hit wall, dead.")
             self.game.playing = False

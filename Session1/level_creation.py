@@ -69,14 +69,10 @@ def room(wall_list, number):
 
     return(wall_list)
 
-BLOCK_LAYER = 1
-PLAYER_LAYER = 2
-TILESIZE = 32
-
 map = [
     "BBBBBBBBBBBBBBBBBBBBBB",
     "B............B.......B",
-    "B............B.......B",
+    "B............B...E...B",
     "B............B.......B",
     "B............B.......B",
     "B...P........B.......B",
@@ -94,10 +90,11 @@ map = [
 
 class Block(pygame.sprite.Sprite):
     def __init__(self, game, x, y, sprite, im_x, im_y, scale = 1, block=False):
-        self._layer = BLOCK_LAYER
         if block:
+            self._layer = BLOCK_LAYER
             self.groups = game.all_sprites, game.blocks
         else:
+            self._layer = GROUND_LAYER
             self.groups = game.all_sprites
         pygame.sprite.Sprite.__init__(self, self.groups)
 
@@ -117,6 +114,9 @@ def create_room_for_tilemap(game):
         for col, tile in enumerate(tiles):
             if tile == "B":
                 Block(game, col, row, "assets/Objects/Floor.png",0,0, block=True)
+            elif tile == "E":
+                Block(game, col, row, "assets/Objects/Floor.png",0,48)
+                game.enemies.add(Player(game, col*TILESIZE, row*TILESIZE, "assets/Characters/Undead0.png",0,0, enemy=True))
             elif tile == "P":
                 Block(game, col, row, "assets/Objects/Floor.png",0,48)
                 game.player = Player(game, col*TILESIZE, row*TILESIZE)
