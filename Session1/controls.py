@@ -29,16 +29,16 @@ class Controls:
                     # create bullet in direction player is facing
                     if game.player.direction == 0:
                         #runter
-                        bullet = Bullet(game.player.rect.x, game.player.rect.y, (0, 1), game.player.special)
+                        bullet = Bullet(game, game.player.rect.x, game.player.rect.y, (0, 1), game.player.special)
                     elif game.player.direction == 2:
                         #rechts
-                        bullet = Bullet(game.player.rect.x, game.player.rect.y, (1, 0), game.player.special)
+                        bullet = Bullet(game, game.player.rect.x, game.player.rect.y, (1, 0), game.player.special)
                     elif game.player.direction == 3:
                         #hoch
-                        bullet = Bullet(game.player.rect.x, game.player.rect.y, (0, -1), game.player.special)
+                        bullet = Bullet(game, game.player.rect.x, game.player.rect.y, (0, -1), game.player.special)
                     elif game.player.direction == 1:
                         #links
-                        bullet = Bullet(game.player.rect.x, game.player.rect.y, (-1, 0), game.player.special)
+                        bullet = Bullet(game, game.player.rect.x, game.player.rect.y, (-1, 0), game.player.special)
                     game.attacks.add(bullet)
                     game.all_sprites.add(bullet)
                     
@@ -71,7 +71,7 @@ class Controls:
                 direction = (rel_x, rel_y)
 
                 # create bullet
-                bullet = Bullet(game.player.rect.x, game.player.rect.y, direction, game.player.special)
+                bullet = Bullet(game,game.player.rect.x, game.player.rect.y, direction, game.player.special)
                 game.attacks.add(bullet)
                 game.all_sprites.add(bullet)
                 
