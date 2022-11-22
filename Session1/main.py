@@ -9,84 +9,12 @@ from items import *
 import pygame
 from config import *
 
-
 # TODO: add a health bar for the player
 # TODO: add a health bar for the enemy
 # TODO: main menu
-# TODO: Items
 # TODO: Music
 # TODO: Enemies movement
-# TODO: Buffs and debuffs 
-# TODO: Bullet class
-# TODO: Sprites
-'''
-
-# create list for bullets
-bullet_list = []
-
-
-#level creation file, creates objects arount players
-create_objects(wall_list, player, enemy)
-
-cntl = Controls()
-# exists so that rewards spawn only once
-fight_running = True
-# main loop
-while cntl.carryOn and not done:
-    # --- Main event loop
-    cntl.get_input(player,bullet_list,all_sprites_list)
-
-    for bullet in bullet_list:
-        # update bullet position
-        bullet.updatex()
-        for curr_enemy in enemy_list:
-        # if bullet collides with enemy, remove bullet and damage enemy
-            if pygame.sprite.collide_rect(bullet, curr_enemy):
-                if(curr_enemy.alive()):
-                    enemy.health -= bullet.damage
-                    print(enemy.health)
-                    bullet_list.remove(bullet)
-                    all_sprites_list.remove(bullet)
-                if curr_enemy.health <= 0:
-                    enemy_list.remove(curr_enemy)
-                    curr_enemy.image = pygame.transform.rotate(curr_enemy.image, 90)
-
-        if len(enemy_list) == 0 and fight_running == True: 
-            fight_running = False
-            reward = spawn_reward()
-            all_sprites_list.add(reward)
-            items_list.append(reward)
-
-    
-    for item in items_list:
-        if pygame.sprite.collide_rect(player, item):
-            player.special = item.special
-            items_list.remove(item)
-            all_sprites_list.remove(item)
-        # TODO: Win screen, wait, new level
-    
-    # if bullet hits wall, kill bullet
-    for bullet in bullet_list:
-        block_hit_list = pygame.sprite.spritecollide(bullet, wall_list, False)
-        for block in block_hit_list:
-            # bugfix, sometimes bug "list.remove(x) : x not in list" occurs
-            if (bullet in bullet_list):
-                bullet_list.remove(bullet)
-            all_sprites_list.remove(bullet) 
-    
-    # if player collides with any wall, kill player
-    done = player.update(wall_list)
-
-    screen.fill(WHITE)
-    wall_list.draw(screen)
-    all_sprites_list.draw(screen)
-
-    pygame.display.flip()
-     
-    clock.tick(60)
-
-pygame.quit()
-'''
+# TODO: Buffs and debuffs
 
 class Game:
     def __init__(self):
