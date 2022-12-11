@@ -6,7 +6,7 @@ import random
 maps = [
     [
         "BBBBBBBBBBBBBBBBBBBBBB",
-        "B............B.......B",
+        "B............B.DD....B",
         "B............B...E...B",
         "B............B.......B",
         "B............B.......B",
@@ -36,7 +36,7 @@ maps = [
         "B...............C....B",
         "B....................B",
         "B..C..BBBBBBBBBBBBBBBB",
-        "B....................B",
+        "B.................DD.B",
         "B................E...B",
         "BBBBBBBBBBBBBBBBBBBBBB",
     ],
@@ -55,7 +55,7 @@ maps = [
         "B....................B",
         "B....................B",
         "B....................B",
-        "B..........P.........B",
+        "B..........P......DD.B",
         "BBBBBBBBBBBBBBBBBBBBBB",
     ],
 ]
@@ -65,27 +65,32 @@ skins = [
     [
         "assets/Objects/basictiles.png",
         [(0,128)], # ground
-        [(78,144), (64,32)] # obstacles
+        [(78,144), (64,32)], # obstacles
+        [(0,0)] # TODO DOORS
     ],
     [
         "assets/Objects/basictiles.png",
         [(16,128)],
-        [(96,64),(96,48)]
-    ],
+        [(96,64),(96,48)],
+        [(0,0)] # TODO DOORS
+    ],  
     [
         "assets/Objects/basictiles.png",
         [(16,128)],
-        [(64,112)]
+        [(64,112)],
+        [(0,0)] # TODO DOORS
     ],
     [
         "assets/Objects/basictiles.png",
         [(16,16)],
-        [(16,32)]
+        [(16,32)],
+        [(0,0)] # TODO DOORS
     ],
     [
         "assets/Objects/basictiles.png",
         [(48,16)],
-        [(64,16)]
+        [(64,16)],
+        [(0,0)] # TODO DOORS
     ],
 ]
 
@@ -125,6 +130,7 @@ def create_room_for_tilemap(game):
     for row, tiles in enumerate(map):
         for col, tile in enumerate(tiles):
             if tile == "B":
+                #random choice here necessary? skin is picked already?
                 ground = random.choice(skin[1])
                 block = random.choice(skin[2])
                 Block(game, col, row, skin[0],ground[0],ground[1])
@@ -145,6 +151,9 @@ def create_room_for_tilemap(game):
                 ground = random.choice(skin[1])
                 Block(game, col, row, skin[0],ground[0],ground[1])
                 game.player = Player(game, col*TILESIZE, row*TILESIZE)
+            elif tile == "D":
+                ground = random.choice(skin[3])
+                Block(game, col, row, "assets/Objects/Door0.png", ground[0],ground[1])
             else:
                 ground = random.choice(skin[1])
                 Block(game, col, row, skin[0],ground[0],ground[1])
