@@ -38,13 +38,10 @@ class Player(pygame.sprite.Sprite):
                 self.image = pygame.transform.rotate(self.image, 90)
                 Item(self.game, self.drop, self.rect.x+10, self.rect.y+10, "assets/Items/Potion.png", 0, 0)
                 self.remove(self.game.enemies)
-                return
-            return
         elif self.moving:
             self.step += 1
             self.image = self.imagerow[self.direction*3 + int(self.step/6) % 3]
-            self.image = pygame.transform.scale(self.image, (32,32))
-            return
+            self.image = pygame.transform.scale(self.image, (32,32)) 
         else:
             self.image = self.imagerow[self.direction*3]
             self.image = pygame.transform.scale(self.image, (32,32))
@@ -52,6 +49,7 @@ class Player(pygame.sprite.Sprite):
         block_hit_list = pygame.sprite.spritecollide(self, self.game.blocks, False)
         for _ in block_hit_list:
             self.game.playing = False
+            print("HOLA")
             return
         # check if the player hits a door
         door_hit_list = pygame.sprite.spritecollide(self, self.game.doors, False)
