@@ -24,7 +24,7 @@ maps = [
     ],
     [
         "BBBBBBBBBBBBBBBBBBBBBB",
-        "B..P.................B",
+        "B..P..........I..D...B",
         "B....................B",
         "BBBBBBBBBBBBBBB...C..B",
         "B....E...............B",
@@ -54,7 +54,7 @@ maps = [
         "B.........EE.........B",
         "B....................B",
         "B....................B",
-        "B....................B",
+        "B...............I....B",
         "B..........P......DD.B",
         "BBBBBBBBBBBBBBBBBBBBBB",
     ],
@@ -150,10 +150,13 @@ def create_room_for_tilemap(game):
                 ground = random.choice(skin[1])
                 Block(game, col, row, skin[0],ground[0],ground[1])
                 Item(game, "chest", col*TILESIZE, row*TILESIZE, "assets/Items/Chest0.png",0,0)
-            elif tile == "P":                
+            elif tile == "P":
                 ground = random.choice(skin[1])
                 Block(game, col, row, skin[0],ground[0],ground[1])
-                game.player = Player(game, col*TILESIZE, row*TILESIZE)
+                if game.player:
+                    game.player = Player(game, col*TILESIZE, row*TILESIZE, special=game.player.special)
+                else:
+                    game.player = Player(game, col*TILESIZE, row*TILESIZE)
             elif tile == "D":
                 ground = random.choice(skin[3])
                 Block(game, col, row, "assets/Objects/Door0.png", ground[0],ground[1], door=True)

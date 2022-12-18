@@ -24,6 +24,7 @@ class Game:
         self.running = True
         self.playing = False
         self.status = "mainmenu"
+        self.player = None
 
     def new(self):
         self.playing = True

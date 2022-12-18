@@ -5,7 +5,7 @@ from items import *
 
 class Player(pygame.sprite.Sprite):
     # this class represents the player
-    def __init__(self, game, x, y, spritesh = "assets/Characters/animated.png", imx = 64, imy = 0, scale = 1, enemy = False):
+    def __init__(self, game, x, y, spritesh = "assets/Characters/animated.png", imx = 64, imy = 0, scale = 1, enemy = False, special = None):
         self.enemy = enemy
         if self.enemy:
             self._layer = ENEMY_LAYER
@@ -27,7 +27,7 @@ class Player(pygame.sprite.Sprite):
         self.step = 0
         self.direction = 1
         self.imagerow = [self.image for i in range(4)]
-        self.special = None
+        self.special = special
         self.moving = False
         self.drop = "health"
 
