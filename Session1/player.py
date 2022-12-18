@@ -50,6 +50,10 @@ class Player(pygame.sprite.Sprite):
             self.image = pygame.transform.scale(self.image, (32,32))
         # check if the player hits a wall
         block_hit_list = pygame.sprite.spritecollide(self, self.game.blocks, False)
-        for block in block_hit_list:
+        for _ in block_hit_list:
             self.game.playing = False
             return
+        # check if the player hits a door
+        door_hit_list = pygame.sprite.spritecollide(self, self.game.doors, False)
+        for _ in door_hit_list:
+            self.game.new()

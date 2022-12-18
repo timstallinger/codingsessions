@@ -103,10 +103,13 @@ dungeons = [
     ],
 ]
 class Block(pygame.sprite.Sprite):
-    def __init__(self, game, x, y, sprite, im_x, im_y, scale = 1, block=False):
+    def __init__(self, game, x, y, sprite, im_x, im_y, scale = 1, block=False, door=False):
         if block:
             self._layer = BLOCK_LAYER
             self.groups = game.all_sprites, game.blocks
+        elif door:
+            self._layer = BLOCK_LAYER
+            self.groups = game.all_sprites, game.doors
         else:
             self._layer = GROUND_LAYER
             self.groups = game.all_sprites
@@ -153,7 +156,7 @@ def create_room_for_tilemap(game):
                 game.player = Player(game, col*TILESIZE, row*TILESIZE)
             elif tile == "D":
                 ground = random.choice(skin[3])
-                Block(game, col, row, "assets/Objects/Door0.png", ground[0],ground[1])
+                Block(game, col, row, "assets/Objects/Door0.png", ground[0],ground[1], door=True)
             else:
                 ground = random.choice(skin[1])
                 Block(game, col, row, skin[0],ground[0],ground[1])

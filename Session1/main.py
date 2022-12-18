@@ -29,6 +29,7 @@ class Game:
         self.enemies = pygame.sprite.LayeredUpdates()
         self.attacks = pygame.sprite.LayeredUpdates()
         self.items = pygame.sprite.LayeredUpdates()
+        self.doors = pygame.sprite.LayeredUpdates()
 
         create_room_for_tilemap(self)
 
