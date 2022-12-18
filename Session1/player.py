@@ -31,7 +31,6 @@ class Player(pygame.sprite.Sprite):
         self.moving = False
         self.drop = "health"
 
-    # never called?
     def update(self):
         if self.health <= 0 and self.enemy:
             if self in self.game.enemies:

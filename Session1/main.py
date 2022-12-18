@@ -3,6 +3,7 @@ from Bullet import *
 from level_creation import *
 from controls import *
 from spritehandler import *
+from mainmenu import *
 import math
 import os
 from items import *
@@ -21,6 +22,8 @@ class Game:
         self.screen = pygame.display.set_mode((WINWIDTH, WINHEIGHT))
         self.clock = pygame.time.Clock()
         self.running = True
+        self.playing = False
+        self.status = "mainmenu"
 
     def new(self):
         self.playing = True
@@ -54,13 +57,15 @@ class Game:
             self.events()
             self.update()
             self.draw()
-        self.running = False
     
     def game_over(self):
         print("Game Over")
 
     def intro_screen(self):
-        pass
+        mainmenu(self)
+        menuControls(self)
+        self.clock.tick(FPS)
+        pygame.display.flip()
 
     def play_sound(self, sound):
         # Load audio file
@@ -68,7 +73,6 @@ class Game:
         rel_path = "assets/music/"+sound+".wav"
         abs_file_path = os.path.join(script_dir, rel_path)
         pygame.mixer.music.load(abs_file_path)
-
         pygame.mixer.music.play()
 
 
@@ -77,9 +81,11 @@ pygame.mixer.init()
 pygame.display.set_caption("Pew Pew")
 
 g = Game()
-g.intro_screen()
+while g.status == "mainmenu":
+    g.intro_screen()
 g.new()
-while g.running:
-    g.main()
-    g.game_over()
-pygame.quit()
+pygame.display.update()
+print("running")
+g.main()
+g.game_over()
+# pygame.quit()
