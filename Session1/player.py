@@ -2,6 +2,8 @@ import pygame
 from spritehandler import *
 from config import *
 from items import *
+from Bullet import *
+import random
 
 class Player(pygame.sprite.Sprite):
     # this class represents the player
@@ -48,12 +50,34 @@ class Player(pygame.sprite.Sprite):
         block_hit_list = pygame.sprite.spritecollide(self, self.game.blocks, False)
         for _ in block_hit_list:
             self.game.playing = False
-            print("HOLA")
             return
         # check if the player hits a door
         door_hit_list = pygame.sprite.spritecollide(self, self.game.doors, False)
         for _ in door_hit_list:
             self.game.new()
+        
+        if self.health <= 0:
+            self.game.playing = False
+            return
 
     def drawHealth(self):
         pygame.draw.rect(self.game.screen, (0,128,0), (self.rect.x-10, self.rect.y - 15, self.health, 5))
+    
+    def randomShoot(self):
+        r = random.randint(0,100)
+        d = random.randint(0,3)
+        if r < 1:
+            if d == 0:
+                #runter
+                bullet = Bullet(self.game, self.rect.x, self.rect.y, (0, 1), self.special,hitEnemy=False)
+            elif d == 2:
+                #rechts
+                bullet = Bullet(self.game, self.rect.x, self.rect.y, (1, 0), self.special,hitEnemy=False)
+            elif d == 3:
+                #hoch
+                bullet = Bullet(self.game, self.rect.x, self.rect.y, (0, -1), self.special,hitEnemy=False)
+            elif d == 1:
+                #links
+                bullet = Bullet(self.game, self.rect.x, self.rect.y, (-1, 0), self.special,hitEnemy=False)
+            self.game.attacks.add(bullet)
+            self.game.all_sprites.add(bullet)

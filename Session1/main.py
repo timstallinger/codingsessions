@@ -52,8 +52,9 @@ class Game:
         self.all_sprites.draw(self.screen)
         for enemy in self.enemies:
             enemy.drawHealth()
+            enemy.randomShoot()
         self.player.drawHealth()
-        
+
         self.clock.tick(FPS)
         pygame.display.flip()
     

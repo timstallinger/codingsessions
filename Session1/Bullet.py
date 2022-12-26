@@ -3,7 +3,7 @@ from config import *
 from spritehandler import *
 
 class Bullet(pygame.sprite.Sprite):
-    def __init__(self, game, x, y, direction, special,scale = 1, damage = 10):
+    def __init__(self, game, x, y, direction, special,scale = 1, damage = 10, hitEnemy = True):
         self._layer = BULLET_LAYER
         self.groups = game.all_sprites, game.attacks
         pygame.sprite.Sprite.__init__(self, self.groups)
@@ -22,6 +22,7 @@ class Bullet(pygame.sprite.Sprite):
         self.speed = 4
         # direction is tuple (x, y)
         self.direction = direction
+        self.hitEnemy = hitEnemy
 
     def update(self):
         # update position according to direction and speed
@@ -33,9 +34,15 @@ class Bullet(pygame.sprite.Sprite):
             self.kill()
 
         # check if the bullet hits an enemy
-        enemy_hit_list = pygame.sprite.spritecollide(self, self.game.enemies, False)
-        for enemy in enemy_hit_list:
-            enemy.health -= self.damage
-            print(enemy.health)
-            self.kill()
+        if self.hitEnemy:
+            enemy_hit_list = pygame.sprite.spritecollide(self, self.game.enemies, False)
+            for enemy in enemy_hit_list:
+                enemy.health -= self.damage
+                self.kill()
+        else:
+            collision = pygame.sprite.spritecollide(self, self.game.all_sprites, False)
+            for obj in collision:
+                if obj == self.game.player:
+                    self.game.player.health -= self.damage
+                    self.kill()
 
