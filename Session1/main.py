@@ -34,6 +34,7 @@ class Game:
         self.attacks = pygame.sprite.LayeredUpdates()
         self.items = pygame.sprite.LayeredUpdates()
         self.doors = pygame.sprite.LayeredUpdates()
+        self.gui = pygame.sprite.LayeredUpdates()
 
         create_room_for_tilemap(self)
 
@@ -48,8 +49,11 @@ class Game:
         self.all_sprites.update()
     
     def draw(self):
-        self.screen.fill((255, 255, 255))
         self.all_sprites.draw(self.screen)
+        for enemy in self.enemies:
+            enemy.drawHealth()
+        self.player.drawHealth()
+        
         self.clock.tick(FPS)
         pygame.display.flip()
     
@@ -86,7 +90,6 @@ while g.status == "mainmenu":
     g.intro_screen()
 g.new()
 pygame.display.update()
-print("running")
 g.main()
 g.game_over()
 # pygame.quit()

@@ -54,3 +54,6 @@ class Player(pygame.sprite.Sprite):
         door_hit_list = pygame.sprite.spritecollide(self, self.game.doors, False)
         for _ in door_hit_list:
             self.game.new()
+
+    def drawHealth(self):
+        pygame.draw.rect(self.game.screen, (0,128,0), (self.rect.x-10, self.rect.y - 15, self.health, 5))
