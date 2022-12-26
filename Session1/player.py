@@ -56,7 +56,7 @@ class Player(pygame.sprite.Sprite):
         for _ in door_hit_list:
             self.game.new()
         
-        if self.health <= 0:
+        if self.health <= 0 and self == self.game.player:
             self.game.playing = False
             return
 
