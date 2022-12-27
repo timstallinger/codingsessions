@@ -27,6 +27,9 @@ class Controls:
                 # if player pushes space
                 if event.key == pygame.K_SPACE:
                     # create bullet in direction player is facing
+                    if not game.player.checkcooldown():
+                        print("no")
+                        return
                     if game.player.direction == 0:
                         #runter
                         bullet = Bullet(game, game.player.rect.x, game.player.rect.y, (0, 1), game.player.special)
@@ -41,6 +44,7 @@ class Controls:
                         bullet = Bullet(game, game.player.rect.x, game.player.rect.y, (-1, 0), game.player.special)
                     game.attacks.add(bullet)
                     game.all_sprites.add(bullet)
+                    game.player.cooldown = 1*FPS
                     
                 
             # if game.player clicks left mouse, create bullet in according direction
