@@ -28,7 +28,7 @@ class Controls:
                 if event.key == pygame.K_SPACE:
                     # create bullet in direction player is facing
                     if not game.player.checkcooldown():
-                        print("no")
+                        print("no cooldown")
                         return
                     if game.player.direction == 0:
                         #runter

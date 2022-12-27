@@ -4,6 +4,7 @@ from config import *
 from items import *
 from Bullet import *
 import random
+import math
 
 class Player(pygame.sprite.Sprite):
     # this class represents the player
@@ -75,20 +76,14 @@ class Player(pygame.sprite.Sprite):
     def randomShoot(self):
         r = random.randint(0,100)
         if r < 1:
-            if self.game.player.rect.y > self.rect.y:
-                #runter
-                bullet = Bullet(self.game, self.rect.x, self.rect.y, (0, 1), self.special,hitEnemy=False)
-            elif self.game.player.rect.x > self.rect.x:
-                #rechts
-                bullet = Bullet(self.game, self.rect.x, self.rect.y, (1, 0), self.special,hitEnemy=False)
-            elif self.game.player.rect.y < self.rect.y:
-                #hoch
-                bullet = Bullet(self.game, self.rect.x, self.rect.y, (0, -1), self.special,hitEnemy=False)
-            elif self.game.player.rect.x < self.rect.x:
-                #links
-                bullet = Bullet(self.game, self.rect.x, self.rect.y, (-1, 0), self.special,hitEnemy=False)
-            self.game.attacks.add(bullet)
-            self.game.all_sprites.add(bullet)
+            # calculate the angle between the player and self.game.player
+            angle = math.atan2(self.game.player.rect.y - self.rect.y, self.game.player.rect.x - self.rect.x)
+            # calculate the direction vector
+            dx = math.cos(angle)
+            dy = math.sin(angle)
+            # create a bullet
+            bullet = Bullet(self.game, self.rect.x + 16, self.rect.y + 16, (dx, dy), self.special, hitEnemy=False)
+            # add the bullet to the game
     # check if the enemy sees a player
     def checkPlayer(self):
         if self.enemy:
