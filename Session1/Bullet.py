@@ -9,10 +9,12 @@ class Bullet(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self, self.groups)
         self.game = game
         self.damage = damage
+        self.special = ""
         if special == "nuke":
             self.image = spritesheet("assets/Objects/Effect0.png").image_at((112,352,16,16))
             self.image = pygame.transform.scale(self.image, (32*scale,32*scale))
             self.damage = 100
+            self.special = "nuke"
         else:
             self.image = spritesheet("assets/Objects/Effect0.png").image_at((96,353,16,16))
             self.image = pygame.transform.scale(self.image, (16*scale,16*scale))
@@ -25,7 +27,7 @@ class Bullet(pygame.sprite.Sprite):
         self.hitEnemy = hitEnemy
 
     def update(self):
-        # update position according to direction and speed
+        # update position according to direction and normalized speed
         self.rect.x += self.direction[0] * self.speed
         self.rect.y += self.direction[1] * self.speed
 
@@ -39,6 +41,11 @@ class Bullet(pygame.sprite.Sprite):
             for enemy in enemy_hit_list:
                 enemy.health -= self.damage
                 self.kill()
+            wall_hit_list = pygame.sprite.spritecollide(self, self.game.blocks, False)
+            for wall in wall_hit_list:
+                wall.kill()
+                self.kill()
+        
         else:
             collision = pygame.sprite.spritecollide(self, self.game.all_sprites, False)
             for obj in collision:

@@ -25,6 +25,7 @@ class Game:
         self.playing = False
         self.status = "mainmenu"
         self.player = None
+        self.secondplayer = None
 
     def new(self):
         self.playing = True
@@ -39,6 +40,7 @@ class Game:
         create_room_for_tilemap(self)
 
         self.player.imagerow = spritesheet("assets/Characters/animated.png").images_at([(64,0,16,16),(48,0,16,16),(80,0,16,16),(64,16,16,16),(48,16,16,16),(80,16,16,16),(64,32,16,16),(48,32,16,16),(80,32,16,16),(64,48,16,16),(48,48,16,16),(80,48,16,16)], colorkey = None)
+        self.secondplayer.imagerow = spritesheet("assets/Characters/animated.png").images_at([(64,0,16,16),(48,0,16,16),(80,0,16,16),(64,16,16,16),(48,16,16,16),(80,16,16,16),(64,32,16,16),(48,32,16,16),(80,32,16,16),(64,48,16,16),(48,48,16,16),(80,48,16,16)], colorkey = None)
 
         self.playerCntrl = Controls()
 
@@ -54,6 +56,7 @@ class Game:
             enemy.drawHealth()
             enemy.randomShoot()
         self.player.drawHealth()
+        self.secondplayer.drawHealth()
 
         self.clock.tick(FPS)
         pygame.display.flip()
@@ -86,11 +89,15 @@ pygame.init()
 pygame.mixer.init()
 pygame.display.set_caption("Pew Pew")
 
+
+
+
+# game loop without game over, but with main menu
 g = Game()
-while g.status == "mainmenu":
+g.intro_screen()
+while g.running:
+    g.new()
+    g.main()
+    g.game_over()
     g.intro_screen()
-g.new()
-pygame.display.update()
-g.main()
-g.game_over()
-# pygame.quit()
+

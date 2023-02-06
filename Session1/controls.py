@@ -7,6 +7,10 @@ class Controls:
     hold_left = False
     hold_up = False
     hold_down = False
+    hold_rights = False
+    hold_lefts = False
+    hold_ups = False
+    hold_downs = False
 
     def get_input(self, game):
         for event in pygame.event.get():
@@ -45,6 +49,42 @@ class Controls:
                     game.attacks.add(bullet)
                     game.all_sprites.add(bullet)
                     game.player.cooldown = 1*FPS
+
+                # check input for second player
+                # if player pushes up
+                #pygame W Key pygame.
+                if event.key == pygame.K_w:
+                    self.hold_ups = True
+                # if player pushes down
+                if event.key == pygame.K_s:
+                    self.hold_downs = True
+                # if player presses right arrow move player right
+                if event.key == pygame.K_d:
+                    self.hold_rights = True
+                # if player presses left arrow move player left
+                if event.key == pygame.K_a:
+                    self.hold_lefts = True
+                # if player pushes space
+                if event.key == pygame.K_LSHIFT:
+                    # create bullet in direction player is facing
+                    if not game.secondplayer.checkcooldown():
+                        print("no cooldown")
+                        return
+                    if game.secondplayer.direction == 0:
+                        #runter
+                        bullet = Bullet(game, game.secondplayer.rect.x, game.secondplayer.rect.y, (0, 1), game.secondplayer.special)
+                    elif game.secondplayer.direction == 2:
+                        #rechts
+                        bullet = Bullet(game, game.secondplayer.rect.x, game.secondplayer.rect.y, (1, 0), game.secondplayer.special)
+                    elif game.secondplayer.direction == 3:
+                        #hoch
+                        bullet = Bullet(game, game.secondplayer.rect.x, game.secondplayer.rect.y, (0, -1), game.secondplayer.special)
+                    elif game.secondplayer.direction == 1:
+                        #links
+                        bullet = Bullet(game, game.secondplayer.rect.x, game.secondplayer.rect.y, (-1, 0), game.secondplayer.special)
+                    game.attacks.add(bullet)
+                    game.all_sprites.add(bullet)
+                    game.secondplayer.cooldown = 1*FPS
                     
                 
             # if game.player clicks left mouse, create bullet in according direction
@@ -57,7 +97,17 @@ class Controls:
                     self.hold_up = False
                 if event.key == pygame.K_DOWN:
                     self.hold_down = False
-            
+
+                # second player	
+                if event.key == pygame.K_d:
+                    self.hold_rights = False
+                if event.key == pygame.K_a:
+                    self.hold_lefts = False
+                if event.key == pygame.K_w:
+                    self.hold_ups = False
+                if event.key == pygame.K_s:
+                    self.hold_downs = False
+
             if event.type == pygame.MOUSEBUTTONDOWN:
                 # get mouse position
                 pos = pygame.mouse.get_pos()
@@ -102,3 +152,23 @@ class Controls:
             game.player.direction = 0
         if not self.hold_right and not self.hold_left and not self.hold_up and not self.hold_down:
             game.player.moving=False
+
+        # second player
+        if self.hold_rights:
+            game.secondplayer.rect.x += 3
+            game.secondplayer.moving=True
+            game.secondplayer.direction = 2
+        if self.hold_lefts:
+            game.secondplayer.rect.x -= 3
+            game.secondplayer.moving=True
+            game.secondplayer.direction = 1
+        if self.hold_ups:
+            game.secondplayer.rect.y -= 3
+            game.secondplayer.moving=True
+            game.secondplayer.direction = 3
+        if self.hold_downs:
+            game.secondplayer.rect.y += 3
+            game.secondplayer.moving=True
+            game.secondplayer.direction = 0
+        if not self.hold_rights and not self.hold_lefts and not self.hold_ups and not self.hold_downs:
+            game.secondplayer.moving=False

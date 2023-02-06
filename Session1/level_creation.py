@@ -23,6 +23,24 @@ maps = [
         "BBBBBBBBBBBBBBBBBBBBBB",
     ],
     [
+        "BBBBBBBBBBBBBBBBBBBBBB",       #B boundaries
+        "B..P.....S.......D...B",       #P player
+        "B....I...............B",       #I item
+        "BBBBBBBBBBBBBBB...C..B",       #C chest
+        "B.E.....B............B",       #E enemy
+        "B..E........B........B",       #D door
+        "B.C.....BBBBBBBBBBBBBB",       #. empty space    
+        "B....................B",       #S second Player
+        "B....................B",
+        "BBBBBBBBBBBBBBBBBB...B",
+        "B...............C....B",
+        "B....................B",
+        "B..C..BBBBBBBBBBBBBBBB",
+        "B.................DD.B",
+        "B................E...B",
+        "BBBBBBBBBBBBBBBBBBBBBB",
+    ],
+    [
         "BBBBBBBBBBBBBBBBBBBBBB",
         "B..P..........I..D...B",
         "B....................B",
@@ -128,7 +146,7 @@ class Block(pygame.sprite.Sprite):
 
 def create_room_for_tilemap(game):
     # chose random map
-    map = random.choice(maps)
+    map = maps[1] #random.choice(maps)
     skin = random.choice(skins)
     for row, tiles in enumerate(map):
         for col, tile in enumerate(tiles):
@@ -157,6 +175,13 @@ def create_room_for_tilemap(game):
                     game.player = Player(game, col*TILESIZE, row*TILESIZE, special=game.player.special)
                 else:
                     game.player = Player(game, col*TILESIZE, row*TILESIZE)
+            elif tile == "S":
+                ground = random.choice(skin[1])
+                Block(game, col, row, skin[0],ground[0],ground[1])
+                if game.player:
+                    game.secondplayer = Player(game, col*TILESIZE, row*TILESIZE, special=game.player.special)
+                else:
+                    game.secondplayer = Player(game, col*TILESIZE, row*TILESIZE)
             elif tile == "D":
                 ground = random.choice(skin[3])
                 Block(game, col, row, "assets/Objects/Door0.png", ground[0],ground[1], door=True)

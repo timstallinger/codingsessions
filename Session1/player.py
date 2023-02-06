@@ -52,7 +52,8 @@ class Player(pygame.sprite.Sprite):
         # check if the player hits a wall
         block_hit_list = pygame.sprite.spritecollide(self, self.game.blocks, False)
         for _ in block_hit_list:
-            self.game.playing = False
+            self.health -= 1
+            #self.game.playing = False
             return
         # check if the player hits a door
         door_hit_list = pygame.sprite.spritecollide(self, self.game.doors, False)
@@ -82,8 +83,29 @@ class Player(pygame.sprite.Sprite):
             dx = math.cos(angle)
             dy = math.sin(angle)
             # create a bullet
+            print((dx,dy))
             bullet = Bullet(self.game, self.rect.x + 16, self.rect.y + 16, (dx, dy), self.special, hitEnemy=False)
             # add the bullet to the game
+    
+    def randomMove(self):
+        print("hola")
+        r = random.randint(0,100)
+        if r < 1:
+            self.direction = random.randint(0,3)
+            self.moving = True
+            #change position
+            if self.direction == 0:
+                self.rect.y += self.speed
+            elif self.direction == 1:
+                self.rect.x -= self.speed
+            elif self.direction == 2:
+                self.rect.x += self.speed
+            elif self.direction == 3:
+                self.rect.y -= self.speed
+        else:
+            self.moving = False
+
+            
     # check if the enemy sees a player
     def checkPlayer(self):
         if self.enemy:
